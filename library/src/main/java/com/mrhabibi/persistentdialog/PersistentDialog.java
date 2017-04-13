@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.mrhabibi.persistentdialog.utils.DialogUtils;
@@ -47,12 +49,12 @@ public class PersistentDialog {
     final static HashSet<String> dismissedDialogIds = new HashSet<>();
 
     /**
-     * Used to keep shown dialog ids & ready status, for handling showing one dialog per id
+     * Used to keep shown dialog ids and ready status, for handling showing one dialog per id
      */
     final static HashMap<String, Boolean> shownDialogIds = new HashMap<>();
 
     /**
-     * Builder instantiator for such simple dialog, with no callback & non singleton style
+     * Builder instantiator for such simple dialog, with no callback and non singleton style
      *
      * @param context The God object
      * @return The Builder
@@ -62,7 +64,7 @@ public class PersistentDialog {
     }
 
     /**
-     * Builder instantiator for dialog with callback(s) & singleton style
+     * Builder instantiator for dialog with callback(s) and singleton style
      *
      * @param context    The God object
      * @param identifier The whatever identifier
@@ -89,7 +91,7 @@ public class PersistentDialog {
     }
 
     /**
-     * Used to reset shown & dismissed dialog for specific identifier
+     * Used to reset shown and dismissed dialog for specific identifier
      *
      * @param context    The God object
      * @param identifier The same whatever identifier
@@ -292,7 +294,7 @@ public class PersistentDialog {
                 if (context instanceof Activity) {
                     ActivityCompat.startActivityForResult(((Activity) context), mIntent, REQUEST_PERSISTENT_DIALOG, null);
                 } else {
-                    context.startActivity(mIntent, null);
+                    ContextCompat.startActivity(context, mIntent, null);
                 }
             }
         }
