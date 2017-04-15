@@ -1,1 +1,1 @@
-include ':sample', ':library'
+include ':persistent-dialog-sample', ':persistent-dialog-library'
