@@ -6,14 +6,14 @@ ext {
 
     publishedGroupId = 'com.mrhabibi'
     libraryName = 'Persistent Dialog'
-    artifact = 'persistent-dialog-library'
+    artifact = 'persistent-dialog'
 
     libraryDescription = 'A wrapper for building independent and persistent dialog with many features as an alternative to AlertDialog and DialogFragment on Android'
 
     siteUrl = 'https://github.com/mrhabibi/persistent-dialog'
     gitUrl = 'https://github.com/mrhabibi/persistent-dialog.git'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
 
     developerId = 'mrhabibi'
     developerName = 'Muhammad Rizky Habibi'
@@ -43,7 +43,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 100001
+        versionCode 100002
         versionName "$libraryVersion"
     }
 

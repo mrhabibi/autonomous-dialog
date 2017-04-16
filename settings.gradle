@@ -1,1 +1,3 @@
-include ':persistent-dialog-sample', ':persistent-dialog-library'
+include ':sample', ':persistent-dialog'
+
+rootProject.name = 'persistent-dialog-project'
