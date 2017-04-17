@@ -10,8 +10,8 @@ Feel free to create issues and pull requests.
 ## License
 
 ```
-BottomBar library for Android
-Copyright (c) 2016 Iiro Krankka (http://github.com/roughike).
+Persistent Dialog library for Android
+Copyright (c) 2017 Muhammad Rizky Habibi (http://github.com/mrhabibi).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
