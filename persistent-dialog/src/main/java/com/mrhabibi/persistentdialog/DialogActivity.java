@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.mrhabibi.persistentdialog.utils.DialogUtils;
@@ -234,7 +233,7 @@ public class DialogActivity extends AppCompatActivity {
         if (mCurrentFragment != null && !(mCurrentFragment instanceof DialogWrapper)) {
             final Intent intent = makeBasicIntent();
             setResult(DialogResult.RESULT_DIALOG_CANCELLED, intent);
-            setResponses(intent);
+            setCallback(intent);
         }
         super.finish();
     }
@@ -262,7 +261,7 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     intent.putExtra("which", i);
-                    setResult(DialogResult.RESULT_DIALOG_SINGLE_CHOICE, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_SINGLE_CHOICE);
                     if (builder.getSingleChoiceOverridingListener() != null) {
                         builder.getSingleChoiceOverridingListener().onClick(dialogInterface, i);
                     }
@@ -276,7 +275,7 @@ public class DialogActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                     intent.putExtra("which", i);
                     intent.putExtra("checked", b);
-                    setResult(DialogResult.RESULT_DIALOG_MULTI_CHOICES, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_MULTI_CHOICES);
                     if (builder.getMultiChoiceOverridingListener() != null) {
                         builder.getMultiChoiceOverridingListener().onClick(dialogInterface, i, b);
                     }
@@ -289,7 +288,7 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     intent.putExtra("which", i);
-                    setResult(DialogResult.RESULT_DIALOG_PLAIN_CHOICE, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_PLAIN_CHOICE);
                     if (builder.getPlainChoiceOverridingListener() != null) {
                         builder.getPlainChoiceOverridingListener().onClick(dialogInterface, i);
                     }
@@ -302,7 +301,7 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     intent.putExtra("which", i);
-                    setResult(DialogResult.RESULT_DIALOG_POSITIVE_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_POSITIVE_BUTTON);
                 }
             });
         }
@@ -312,7 +311,7 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     intent.putExtra("which", i);
-                    setResult(DialogResult.RESULT_DIALOG_NEGATIVE_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_NEGATIVE_BUTTON);
                 }
             });
         }
@@ -322,7 +321,7 @@ public class DialogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     intent.putExtra("which", i);
-                    setResult(DialogResult.RESULT_DIALOG_NEUTRAL_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_NEUTRAL_BUTTON);
                 }
             });
         }
@@ -338,7 +337,7 @@ public class DialogActivity extends AppCompatActivity {
                  */
                 if (!mReborn) {
 
-                    setResponses(intent);
+                    setCallback(intent);
 
                     if (builder.getDismissOverridingListener() != null) {
                         builder.getDismissOverridingListener().onDismiss(dialogInterface);
@@ -374,7 +373,7 @@ public class DialogActivity extends AppCompatActivity {
                  * the dialog is dismissed
                  */
                 if (builder.getPositiveOverridingListener() != null) {
-                    setResult(DialogResult.RESULT_DIALOG_POSITIVE_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_POSITIVE_BUTTON);
                     mCurrentDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -383,7 +382,7 @@ public class DialogActivity extends AppCompatActivity {
                     });
                 }
                 if (builder.getNegativeOverridingListener() != null) {
-                    setResult(DialogResult.RESULT_DIALOG_NEGATIVE_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_NEGATIVE_BUTTON);
                     mCurrentDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -392,7 +391,7 @@ public class DialogActivity extends AppCompatActivity {
                     });
                 }
                 if (builder.getNeutralOverridingListener() != null) {
-                    setResult(DialogResult.RESULT_DIALOG_NEUTRAL_BUTTON, intent);
+                    dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_NEUTRAL_BUTTON);
                     mCurrentDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -409,7 +408,7 @@ public class DialogActivity extends AppCompatActivity {
         mCurrentDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                setResult(DialogResult.RESULT_DIALOG_CANCELLED, intent);
+                dialogWrapper.setResultCode(DialogResult.RESULT_DIALOG_CANCELLED);
             }
         });
 
@@ -450,7 +449,7 @@ public class DialogActivity extends AppCompatActivity {
      *
      * @param intent Passed intent
      */
-    private void setResponses(Intent intent) {
+    private void setCallback(Intent intent) {
 
         /*
          * If the fragment has DialogCallback

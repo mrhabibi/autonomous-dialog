@@ -72,6 +72,10 @@ public abstract class DialogWrapper extends Fragment implements DialogInterface,
     public void onBundleResponses(Bundle responses) {
     }
 
+    public void setResultCode(int resultCode) {
+        mResultCode = resultCode;
+    }
+
     @Override
     public int getResultCode() {
         return mResultCode;
