@@ -19,6 +19,7 @@ So, here it is, what you are looking for, the straight comparation between Persi
 | Can be shown independently                       |      X      |        X        |         V         |
 | Can be bonded with Activity for advanced styling |      X      |        X        |         V         |
 | Single dialog checking & handling (Singleton)    |      X      |        X        |         V         |
+| Reusable dialog content                          |      X      |        X        |         V         |
 
 ## Installation
 
@@ -27,7 +28,7 @@ So, here it is, what you are looking for, the straight comparation between Persi
 Add this line in your `build.gradle` file:
 
 ```
-   compile 'com.mrhabibi:persistent-dialog:1.0.3'
+compile 'com.mrhabibi:persistent-dialog:1.0.3'
 ```
 
 This library is hosted in the [JCenter repository](https://bintray.com/mrhabibi/maven), so you have to ensure that the repository is included:

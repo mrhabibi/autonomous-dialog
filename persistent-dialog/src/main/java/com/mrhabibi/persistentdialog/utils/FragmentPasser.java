@@ -4,8 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.mrhabibi.persistentdialog.wrapper.DialogWrapper;
+
 import java.util.HashMap;
 import java.util.UUID;
+
+import static com.mrhabibi.persistentdialog.DialogActivity.ALERTDIALOG_ID_PREFIX;
+import static com.mrhabibi.persistentdialog.DialogActivity.DIALOGFRAGMENT_ID_PREFIX;
 
 /**
  * Created by mrhabibi on 11/30/16.
@@ -29,8 +34,8 @@ public class FragmentPasser {
     }
 
     public static String setFragment(@NonNull Fragment fragment) {
-
-        String fragmentGetterId = UUID.randomUUID().toString();
+        String prefix = fragment instanceof DialogWrapper ? ALERTDIALOG_ID_PREFIX : DIALOGFRAGMENT_ID_PREFIX;
+        String fragmentGetterId = prefix + UUID.randomUUID().toString();
         passedFragment.put(fragmentGetterId, fragment);
 
         return fragmentGetterId;

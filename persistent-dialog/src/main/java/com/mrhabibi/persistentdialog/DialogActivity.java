@@ -50,6 +50,9 @@ public class DialogActivity extends AppCompatActivity {
     public static final String PARAMS_LABEL = "params";
     public static final String WILL_REBORN_LABEL = "willReborn";
 
+    public static final String ALERTDIALOG_ID_PREFIX = "AlertDialog_";
+    public static final String DIALOGFRAGMENT_ID_PREFIX = "DialogFragment_";
+
     protected String mFragmentGetterId;
     protected boolean mCancelable;
     protected String mIdentifier;
@@ -83,6 +86,15 @@ public class DialogActivity extends AppCompatActivity {
         extractBundleStates(getIntent().getExtras());
 
         /*
+         * Set activity theme
+         */
+        if (!isAlertDialog() && mThemeRes > 0) {
+            setTheme(mThemeRes);
+        }
+
+        super.onCreate(savedInstanceState);
+
+        /*
          * Bring the fragment to live
          */
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -91,15 +103,6 @@ public class DialogActivity extends AppCompatActivity {
         } else {
             mCurrentFragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
         }
-
-        /*
-         * Set activity theme
-         */
-        if (mCurrentFragment != null && !(mCurrentFragment instanceof DialogWrapper) && mThemeRes > 0) {
-            setTheme(mThemeRes);
-        }
-
-        super.onCreate(savedInstanceState);
 
         /*
          * Check if the fragment has expired
@@ -124,7 +127,7 @@ public class DialogActivity extends AppCompatActivity {
             }
         }
 
-        if (mCurrentFragment != null && mCurrentFragment instanceof DialogWrapper) {
+        if (mCurrentFragment != null && isAlertDialog()) {
 
             /*
              * Alert Dialog mode
@@ -170,7 +173,7 @@ public class DialogActivity extends AppCompatActivity {
 
     @LayoutRes
     protected int injectContentViewRes() {
-        return R.layout.dialog_activity;
+        return R.layout.activity_dialog;
     }
 
     @Override
@@ -230,7 +233,7 @@ public class DialogActivity extends AppCompatActivity {
         /*
          * Set the result and responses for Dialog Fragment mode
          */
-        if (mCurrentFragment != null && !(mCurrentFragment instanceof DialogWrapper)) {
+        if (!isAlertDialog()) {
             final Intent intent = makeBasicIntent();
             setResult(DialogResult.RESULT_DIALOG_CANCELLED, intent);
             setCallback(intent);
@@ -454,7 +457,7 @@ public class DialogActivity extends AppCompatActivity {
         /*
          * If the fragment has DialogCallback
          */
-        if (mCurrentFragment instanceof DialogCallback) {
+        if (mCurrentFragment != null && mCurrentFragment instanceof DialogCallback) {
 
             Bundle responses = new Bundle();
 
@@ -532,5 +535,17 @@ public class DialogActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         extractBundleStates(savedInstanceState);
+    }
+
+    protected boolean isAlertDialog() {
+        return mFragmentGetterId != null && mFragmentGetterId.startsWith(ALERTDIALOG_ID_PREFIX);
+    }
+
+    protected boolean isDialogFragment() {
+        return mFragmentGetterId != null && mFragmentGetterId.startsWith(DIALOGFRAGMENT_ID_PREFIX);
+    }
+
+    protected boolean isDialogActivity() {
+        return mFragmentGetterId == null;
     }
 }
