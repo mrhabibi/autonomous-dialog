@@ -21,6 +21,48 @@ So, here it is, what you are looking for, the straight comparation between Persi
 | Single dialog checking & handling (Singleton)    |      X      |        X        |         V         |
 | Reusable dialog content                          |      X      |        X        |         V         |
 
+## Example
+
+Simple AlertDialog
+
+```
+void showDialog() {
+    PersistentDialog.builder(this)
+                            .setContent(BasicDialogWrapper.newBuilder()
+                                    .message("Simple AlertDialog")
+                                    .positiveText("OK")
+                                    .build())
+                            .show();
+}
+
+```
+
+Simple AlertDialog with callbacks
+
+```
+void showDialog() {
+    PersistentDialog.builder(this, DIALOG_CALLBACK)
+                            .setContent(BasicDialogWrapper.newBuilder()
+                                    .message("Are you sure?")
+                                    .positiveText("Yes")
+                                    .negativeText("No")
+                                    .build())
+                            .show();
+}
+    
+@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        DialogResult result = new DialogResult(resultCode, data);
+        if(result.isPositive(DIALOG_CALLBACK)) {
+            // Yes
+        } else if(result.isNegative(DIALOG_CALLBACK)) {
+            // No
+        }
+    }
+```
+
+to be continued...
+
 ## Installation
 
 ### Gradle
@@ -28,7 +70,7 @@ So, here it is, what you are looking for, the straight comparation between Persi
 Add this line in your `build.gradle` file:
 
 ```
-compile 'com.mrhabibi:persistent-dialog:1.0.3'
+compile 'com.mrhabibi:persistent-dialog:1.0.5'
 ```
 
 This library is hosted in the [JCenter repository](https://bintray.com/mrhabibi/maven), so you have to ensure that the repository is included:
@@ -40,8 +82,6 @@ buildscript {
    }
 }
 ```
-
-
 
 ## Contributions
 

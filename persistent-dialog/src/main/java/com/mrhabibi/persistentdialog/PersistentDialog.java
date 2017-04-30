@@ -55,7 +55,7 @@ public class PersistentDialog {
      * Builder instantiator for such simple dialog, with no callback and non singleton style
      *
      * @param context The God object
-     * @return The Builder
+     * @return The builder
      */
     public static Builder builder(@NonNull Context context) {
         return new Builder(context);
@@ -66,7 +66,7 @@ public class PersistentDialog {
      *
      * @param context    The God object
      * @param identifier The whatever identifier
-     * @return The Builder
+     * @return The builder
      */
     public static Builder builder(@NonNull Context context, String identifier) {
         return new Builder(context, identifier);

@@ -65,6 +65,8 @@ public class DialogActivity extends AppCompatActivity {
      */
     protected boolean mReborn;
 
+    protected boolean mFirstCreation;
+
     protected Fragment mCurrentFragment;
     protected AlertDialog mCurrentDialog;
 
@@ -83,6 +85,7 @@ public class DialogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mFirstCreation = savedInstanceState == null;
         extractBundleStates(getIntent().getExtras());
 
         /*
@@ -94,11 +97,24 @@ public class DialogActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        if (!isAlertDialog()) {
+            setContentView(R.layout.activity_dialog);
+        }
+        /*
+         * Set the cancelable behaviour
+         */
+        setFinishOnTouchOutside(mCancelable);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
         /*
          * Bring the fragment to live
          */
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (savedInstanceState == null) {
+        if (mFirstCreation) {
             mCurrentFragment = FragmentPasser.getFragment(mFragmentGetterId);
         } else {
             mCurrentFragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
@@ -113,7 +129,7 @@ public class DialogActivity extends AppCompatActivity {
             return;
         }
 
-        if (savedInstanceState == null) {
+        if (mFirstCreation) {
             PersistentDialog.shownDialogIds.put(mIdentifier, true);
 
             /*
@@ -132,7 +148,7 @@ public class DialogActivity extends AppCompatActivity {
             /*
              * Alert Dialog mode
              */
-            if (savedInstanceState == null) {
+            if (mFirstCreation) {
                 fragmentManager.beginTransaction()
                         .add(mCurrentFragment, FRAGMENT_TAG)
                         .commit();
@@ -148,8 +164,7 @@ public class DialogActivity extends AppCompatActivity {
             /*
              * Dialog Fragment mode
              */
-            setContentView(injectContentViewRes());
-            if (savedInstanceState == null && mCurrentFragment != null) {
+            if (mFirstCreation && mCurrentFragment != null) {
                 if (findViewById(injectFragmentContainerRes()) == null) {
                     throw new IllegalStateException("Fragment container resource id not found, did you forget to override injectFragmentContainerRes() in your activity?");
                 }
@@ -160,20 +175,15 @@ public class DialogActivity extends AppCompatActivity {
             }
         }
 
-        /*
-         * Set the cancelable behaviour
-         */
-        setFinishOnTouchOutside(mCancelable);
+        onFragmentAttached(mCurrentFragment);
+    }
+
+    protected void onFragmentAttached(Fragment fragment) {
     }
 
     @IdRes
     protected int injectFragmentContainerRes() {
         return R.id.fragment_container;
-    }
-
-    @LayoutRes
-    protected int injectContentViewRes() {
-        return R.layout.activity_dialog;
     }
 
     @Override
@@ -518,23 +528,6 @@ public class DialogActivity extends AppCompatActivity {
                 mParams = bundle.getBundle(PARAMS_LABEL);
             }
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(FRAGMENT_GETTER_ID_LABEL, mFragmentGetterId);
-        outState.putBoolean(CANCELABLE_LABEL, mCancelable);
-        outState.putString(IDENTIFIER_LABEL, mIdentifier);
-        outState.putInt(THEME_RES_LABEL, mThemeRes);
-        outState.putBundle(PARAMS_LABEL, mParams);
-        outState.putBoolean(WILL_REBORN_LABEL, mReborn);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        extractBundleStates(savedInstanceState);
     }
 
     protected boolean isAlertDialog() {

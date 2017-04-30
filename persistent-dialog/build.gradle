@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/mrhabibi/persistent-dialog'
     gitUrl = 'https://github.com/mrhabibi/persistent-dialog.git'
 
-    libraryVersion = '1.0.4'
+    libraryVersion = '1.0.5'
 
     developerId = 'mrhabibi'
     developerName = 'Muhammad Rizky Habibi'
@@ -43,7 +43,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 100004
+        versionCode 100005
         versionName "$libraryVersion"
     }
 
