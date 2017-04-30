@@ -66,22 +66,6 @@ PersistentDialog.builder(this)
                         .show();
 ```
 
-Simple Dialog Activity
-
-```
-PersistentDialog.builder(this)
-                        .setContent(SimpleActivity.class, null)
-                        .show();
-```
-
-Simple Dialog Fragment Activity (Fragment hosted inside Activity)
-
-```
-PersistentDialog.builder(this)
-                        .setContent(SimpleFragmentActivity.class, new SimpleFragment())
-                        .show();
-```
-
 to be continued...
 
 ## Installation
