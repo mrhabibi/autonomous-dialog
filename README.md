@@ -7,37 +7,34 @@ A wrapper for building independent and persistent dialog with many features as a
 
 So, here it is, what you are looking for, the straight comparation between Persistent Dialog with native Alert Dialog or native Dialog Fragment:
 
-|                                                  | AlertDialog | Dialog Fragment | Persistent Dialog |
-|--------------------------------------------------|-------------|-----------------|-------------------|
-| Saving state ability                             |      X      |        V        |         V         |
-| Persistent after rotation                        |      X      |        V        |         V         |
-| No leak while dismissing                         |      X      |        V        |         V         |
-| Can be shown without FragmentManager             |      V      |        X        |         V         |
-| Can be shown using ContextWrapper                |      V      |        X        |         V         |
-| Won't get IllegalStateException when dismissing  |      V      |        X        |         V         |
-| Dismissing asynchronously                        |      X      |        X        |         V         |
-| Can be shown independently                       |      X      |        X        |         V         |
-| Can be bonded with Activity for advanced styling |      X      |        X        |         V         |
-| Single dialog checking & handling (Singleton)    |      X      |        X        |         V         |
-| Reusable dialog content                          |      X      |        X        |         V         |
+|                                                  | Alert Dialog | Dialog Fragment | Persistent Dialog |
+|--------------------------------------------------|--------------|-----------------|-------------------|
+| Saving state ability                             |       X      |        V        |         V         |
+| Persistent after rotation                        |       X      |        V        |         V         |
+| No leak while dismissing                         |       X      |        V        |         V         |
+| Can be shown without FragmentManager             |       V      |        X        |         V         |
+| Can be shown using ContextWrapper                |       V      |        X        |         V         |
+| Won't get IllegalStateException when dismissing  |       V      |        X        |         V         |
+| Dismissing asynchronously                        |       X      |        X        |         V         |
+| Can be shown independently                       |       X      |        X        |         V         |
+| Can be bonded with Activity for advanced styling |       X      |        X        |         V         |
+| Single dialog checking & handling (Singleton)    |       X      |        X        |         V         |
+| Reusable dialog content                          |       X      |        X        |         V         |
 
-## Example
+## Examples
 
-Simple AlertDialog
-
-```
-void showDialog() {
-    PersistentDialog.builder(this)
-                            .setContent(BasicDialogWrapper.newBuilder()
-                                    .message("Simple AlertDialog")
-                                    .positiveText("OK")
-                                    .build())
-                            .show();
-}
+Simple Alert Dialog
 
 ```
+PersistentDialog.builder(this)
+                        .setContent(BasicDialogWrapper.newBuilder()
+                                .message("Simple AlertDialog")
+                                .positiveText("OK")
+                                .build())
+                        .show();
+```
 
-Simple AlertDialog with callbacks
+Simple Alert Dialog with callbacks
 
 ```
 void showDialog() {
@@ -51,14 +48,38 @@ void showDialog() {
 }
     
 @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        DialogResult result = new DialogResult(resultCode, data);
-        if(result.isPositive(DIALOG_CALLBACK)) {
-            // Yes
-        } else if(result.isNegative(DIALOG_CALLBACK)) {
-            // No
-        }
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    DialogResult result = new DialogResult(resultCode, data);
+    if(result.isPositive(DIALOG_CALLBACK)) {
+        // Yes
+    } else if(result.isNegative(DIALOG_CALLBACK)) {
+        // No
     }
+}
+```
+
+Simple Dialog Fragment
+
+```
+PersistentDialog.builder(this)
+                        .setContent(new SimpleFragment())
+                        .show();
+```
+
+Simple Dialog Activity
+
+```
+PersistentDialog.builder(this)
+                        .setContent(SimpleActivity.class, null)
+                        .show();
+```
+
+Simple Dialog Fragment Activity (Fragment hosted inside Activity)
+
+```
+PersistentDialog.builder(this)
+                        .setContent(SimpleFragmentActivity.class, new SimpleFragment())
+                        .show();
 ```
 
 to be continued...
