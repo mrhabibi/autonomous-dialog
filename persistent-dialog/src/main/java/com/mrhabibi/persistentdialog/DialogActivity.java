@@ -100,6 +100,16 @@ public class DialogActivity extends AppCompatActivity {
         if (!isAlertDialog()) {
             setContentView(R.layout.activity_dialog);
         }
+
+        /*
+         * Bring the fragment to live
+         */
+        if (mFirstCreation) {
+            mCurrentFragment = FragmentPasser.getFragment(mFragmentGetterId);
+        } else {
+            mCurrentFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        }
+
         /*
          * Set the cancelable behaviour
          */
@@ -109,16 +119,6 @@ public class DialogActivity extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-
-        /*
-         * Bring the fragment to live
-         */
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if (mFirstCreation) {
-            mCurrentFragment = FragmentPasser.getFragment(mFragmentGetterId);
-        } else {
-            mCurrentFragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
-        }
 
         /*
          * Check if the fragment has expired
@@ -142,6 +142,8 @@ public class DialogActivity extends AppCompatActivity {
                 return;
             }
         }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (mCurrentFragment != null && isAlertDialog()) {
 
