@@ -16,9 +16,4 @@ public class SampleDialogFragmentActivity extends DialogActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_dialog_fragment);
     }
-
-    @Override
-    protected int injectFragmentContainerRes() {
-        return R.id.container;
-    }
 }

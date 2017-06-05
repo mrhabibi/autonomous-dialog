@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -15,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mrhabibi.persistentdialog.utils.DialogUtils;
 import com.mrhabibi.persistentdialog.utils.FragmentPasser;
@@ -97,10 +97,6 @@ public class DialogActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        if (!isAlertDialog()) {
-            setContentView(R.layout.activity_dialog);
-        }
-
         /*
          * Bring the fragment to live
          */
@@ -109,16 +105,6 @@ public class DialogActivity extends AppCompatActivity {
         } else {
             mCurrentFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         }
-
-        /*
-         * Set the cancelable behaviour
-         */
-        setFinishOnTouchOutside(mCancelable);
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
 
         /*
          * Check if the fragment has expired
@@ -143,14 +129,15 @@ public class DialogActivity extends AppCompatActivity {
             }
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        if (mCurrentFragment != null && isAlertDialog()) {
+        if (!isAlertDialog()) {
+            setContentView(R.layout.activity_dialog);
+        } else if (mCurrentFragment != null && isAlertDialog()) {
 
             /*
              * Alert Dialog mode
              */
             if (mFirstCreation) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .add(mCurrentFragment, FRAGMENT_TAG)
                         .commit();
@@ -161,31 +148,47 @@ public class DialogActivity extends AppCompatActivity {
              * Build the alert dialog from fragment
              */
             buildAlertDialog((DialogWrapper) mCurrentFragment);
-        } else {
-
-            /*
-             * Dialog Fragment mode
-             */
-            if (mFirstCreation && mCurrentFragment != null) {
-                if (findViewById(injectFragmentContainerRes()) == null) {
-                    throw new IllegalStateException("Fragment container resource id not found, did you forget to override injectFragmentContainerRes() in your activity?");
-                }
-                fragmentManager.beginTransaction()
-                        .replace(injectFragmentContainerRes(), mCurrentFragment, FRAGMENT_TAG)
-                        .commit();
-                fragmentManager.executePendingTransactions();
-            }
         }
 
-        onFragmentAttached(mCurrentFragment);
+        /*
+         * Set the cancelable behaviour
+         */
+        setFinishOnTouchOutside(mCancelable);
     }
 
-    protected void onFragmentAttached(Fragment fragment) {
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        onAttachFragment();
     }
 
-    @IdRes
-    protected int injectFragmentContainerRes() {
-        return R.id.fragment_container;
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        onAttachFragment();
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+        onAttachFragment();
+    }
+
+    protected void onAttachFragment() {
+
+        /*
+         * Dialog Fragment mode
+         */
+        if (mFirstCreation && mCurrentFragment != null) {
+            if (findViewById(R.id.fragment_container) == null) {
+                throw new IllegalStateException("Fragment container resource id not found, have you included FrameLayout with @id/fragment_container inside your activity content view?");
+            }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, mCurrentFragment, FRAGMENT_TAG)
+                    .commit();
+            fragmentManager.executePendingTransactions();
+        }
     }
 
     @Override
