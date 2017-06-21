@@ -1,13 +1,13 @@
-[ ![Download](https://api.bintray.com/packages/mrhabibi/maven/persistent-dialog/images/download.svg) ](https://bintray.com/mrhabibi/maven/persistent-dialog/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/mrhabibi/maven/autonomous-dialog/images/download.svg) ](https://bintray.com/mrhabibi/maven/autonomous-dialog/_latestVersion)
 
-# Persistent Dialog
-A wrapper for building independent and persistent dialog with many features as an alternative to AlertDialog and DialogFragment on Android.
+# Autonomus Dialog
+A wrapper for building independent and autonomous dialog with many features as an alternative to AlertDialog and DialogFragment on Android.
 
 ## Comparation
 
-So, here it is, what you are looking for, the straight comparation between Persistent Dialog with native Alert Dialog or native Dialog Fragment:
+So, here it is, what you are looking for, the straight comparation between Autonomous Dialog with native Alert Dialog or native Dialog Fragment:
 
-|                                                  | Alert Dialog | Dialog Fragment | Persistent Dialog |
+|                                                  | Alert Dialog | Dialog Fragment | Autonomous Dialog |
 |--------------------------------------------------|--------------|-----------------|-------------------|
 | Saving state ability                             |       X      |        V        |         V         |
 | Persistent after rotation                        |       X      |        V        |         V         |
@@ -26,7 +26,7 @@ So, here it is, what you are looking for, the straight comparation between Persi
 Simple Alert Dialog
 
 ```
-PersistentDialog.builder(this)
+AutonomousDialog.builder(this)
                         .setContent(BasicDialogWrapper.newBuilder()
                                 .message("Simple AlertDialog")
                                 .positiveText("OK")
@@ -38,7 +38,7 @@ Simple Alert Dialog with callbacks
 
 ```
 void showDialog() {
-    PersistentDialog.builder(this, DIALOG_CALLBACK)
+    AutonomousDialog.builder(this, DIALOG_CALLBACK)
                             .setContent(BasicDialogWrapper.newBuilder()
                                     .message("Are you sure?")
                                     .positiveText("Yes")
@@ -61,7 +61,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 Simple Dialog Fragment
 
 ```
-PersistentDialog.builder(this)
+AutonomousDialog.builder(this)
                         .setContent(new SimpleFragment())
                         .show();
 ```
@@ -75,7 +75,7 @@ to be continued...
 Add this line in your `build.gradle` file:
 
 ```
-compile 'com.mrhabibi:persistent-dialog:1.0.6'
+compile 'com.mrhabibi:autonomous-dialog:1.0.7'
 ```
 
 This library is hosted in the [JCenter repository](https://bintray.com/mrhabibi/maven), so you have to ensure that the repository is included:
@@ -95,7 +95,7 @@ Feel free to create issues and pull requests.
 ## License
 
 ```
-Persistent Dialog library for Android
+Autonomous Dialog library for Android
 Copyright (c) 2017 Muhammad Rizky Habibi (http://github.com/mrhabibi).
 
 Licensed under the Apache License, Version 2.0 (the "License");

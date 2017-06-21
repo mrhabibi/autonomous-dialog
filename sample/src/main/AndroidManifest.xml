@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mrhabibi.persistentdialog.sample">
+    package="com.mrhabibi.autonomousdialog.sample">
 
     <application
         android:allowBackup="true"
@@ -20,11 +20,11 @@
 
         <activity
             android:name=".SampleDialogActivity"
-            android:theme="@style/PersistentDialogFragment" />
+            android:theme="@style/AutonomousDialogFragment" />
 
         <activity
             android:name=".SampleDialogFragmentActivity"
-            android:theme="@style/PersistentDialogFragment" />
+            android:theme="@style/AutonomousDialogFragment" />
 
     </application>
 

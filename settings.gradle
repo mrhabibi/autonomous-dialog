@@ -1,3 +1,3 @@
-include ':sample', ':persistent-dialog'
+include ':sample', ':autonomous-dialog'
 
-rootProject.name = 'persistent-dialog-project'
+rootProject.name = 'autonomous-dialog-project'
