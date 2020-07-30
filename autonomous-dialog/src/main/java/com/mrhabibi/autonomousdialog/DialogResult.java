@@ -45,6 +45,20 @@ public class DialogResult {
     }
 
     /**
+     * DialogResult's constructor when you only need to add identifier
+     *
+     * @param resultCode Activity result code
+     * @param identifier Activity dialog identifier
+     */
+    public DialogResult(int resultCode, String identifier) {
+        Intent data = new Intent();
+        data.putExtra("id", identifier);
+
+        this.mData = data;
+        this.mResultCode = resultCode;
+    }
+
+    /**
      * The result is if positive button pressed
      *
      * @param identifier The identifier
