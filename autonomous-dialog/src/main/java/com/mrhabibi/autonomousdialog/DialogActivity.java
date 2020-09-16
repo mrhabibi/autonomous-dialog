@@ -6,15 +6,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.mrhabibi.autonomousdialog.utils.DialogUtils;
 import com.mrhabibi.autonomousdialog.utils.FragmentPasser;
@@ -91,7 +92,7 @@ public class DialogActivity extends AppCompatActivity {
         /*
          * Set activity theme
          */
-        if (!isAlertDialog() && mThemeRes > 0) {
+        if (!isAlertDialog() && mThemeRes != 0) {
             setTheme(mThemeRes);
         }
 
@@ -260,7 +261,7 @@ public class DialogActivity extends AppCompatActivity {
      * Build the alert dialog from given fragment
      */
     private void buildAlertDialog(final DialogWrapper dialogWrapper) {
-        final DialogBuilder builder = new DialogBuilder(this, mThemeRes > 0 ? mThemeRes : com.mrhabibi.autonomousdialog.R.style.AutonomousAlertDialog);
+        final DialogBuilder builder = new DialogBuilder(this, mThemeRes != 0 ? mThemeRes : com.mrhabibi.autonomousdialog.R.style.AutonomousAlertDialog);
 
         /*
          * Collect alert dialog datas

@@ -75,7 +75,7 @@ to be continued...
 Add this line in your `build.gradle` file:
 
 ```
-compile 'com.mrhabibi:autonomous-dialog:1.0.7'
+compile 'com.mrhabibi:autonomous-dialog:1.1.0'
 ```
 
 This library is hosted in the [JCenter repository](https://bintray.com/mrhabibi/maven), so you have to ensure that the repository is included:

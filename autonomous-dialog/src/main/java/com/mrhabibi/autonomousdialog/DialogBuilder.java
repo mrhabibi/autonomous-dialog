@@ -2,11 +2,12 @@ package com.mrhabibi.autonomousdialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ListAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by mrhabibi on 12/5/16.
