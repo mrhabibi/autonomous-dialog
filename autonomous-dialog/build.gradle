@@ -28,12 +28,17 @@ buildscript {
     repositories {
         jcenter()
         google()
+        mavenCentral()
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
-//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
 }
 
@@ -61,5 +66,5 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.2.0"
 }
 
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
